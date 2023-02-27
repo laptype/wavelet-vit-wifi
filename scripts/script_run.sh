@@ -2,7 +2,7 @@
 
 # ./script_run [cuda] [dataset_name] [backbone_name] [head_name] [strategy_name] [batch_size]
 
-python="/home/lanbo/anaconda3/envs/test/bin/python3"
+python="/home/WangFei/anaconda3/envs/torch/bin/python3"
 
 cuda=$1
 dataset_name=$2
@@ -13,7 +13,7 @@ strategy_name=$5
 
 train_batch_size=$6
 eval_batch_size=1
-num_epoch=600
+num_epoch=500
 
 opt_method="adamw"
 # 0.01
@@ -27,7 +27,7 @@ lr_rate_adjust_factor=0.5
 #lr_rate_adjust_factor=0.2
 save_epoch=501
 eval_epoch=501
-patience=60
+patience=0
 
 test_batch_size=$6
 
@@ -38,7 +38,7 @@ datasource_path=$8
 tab=$9
 
 echo "========================${dataset_name}-${backbone_name}-${strategy_name}-TRAIN========================"
-CUDA_VISIBLE_DEVICES=2,3 ${python} -m torch.distributed.launch --nproc_per_node 2 --master_port='29501' --use_env /home/lanbo/wifi_wavelet/main.py \
+CUDA_VISIBLE_DEVICES=2,3 ${python} -m torch.distributed.launch --nproc_per_node 2 --master_port='29501' --use_env /home/WangFei/code/wifi-violence-code/ \
 --dataset_name ${dataset_name} --gpu_device ${cuda} \
 --backbone_name ${backbone_name} --head_name ${head_name} --strategy_name ${strategy_name} \
 --train_batch_size ${train_batch_size} --eval_batch_size ${eval_batch_size} --num_epoch ${num_epoch} \
@@ -50,7 +50,7 @@ CUDA_VISIBLE_DEVICES=2,3 ${python} -m torch.distributed.launch --nproc_per_node 
 
 
 echo "========================${dataset_name}-${strategy_name}-TEST========================"
-CUDA_VISIBLE_DEVICES=${cuda} ${python} /home/lanbo/wifi_wavelet/main.py --dataset_name ${dataset_name} --gpu_device ${cuda} \
+CUDA_VISIBLE_DEVICES=${cuda} ${python} /home/WangFei/code/wifi-violence-code/ --dataset_name ${dataset_name} --gpu_device ${cuda} \
 --backbone_name ${backbone_name} --head_name ${head_name} --strategy_name ${strategy_name} \
 --test_batch_size ${test_batch_size} \
 --datasource_path "${datasource_path}" --tab "${tab}"\

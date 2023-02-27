@@ -22,7 +22,7 @@ use_gpu = 1
 
 class Config:
     dataset_name = 'WiVioAUG_i-window-w-s'
-    datasource_path = '/home/lanbo/dataset/wifi_violence_processed_loc/'
+    datasource_path = '/home/WangFei/data/wifi_violence_dataset/wifi_violence_processed_loc/'
     check_point_path = ''
 
     # backbone_name = 'wavevit_wave12_4_test_16'

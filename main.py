@@ -34,7 +34,7 @@ def init_configs() -> BasicConfig:
                         # help="数据集源路径", default='D:\study\postgraduate\study_project\wavelet_wifi\self-wavelet-wifi\dataset')
                         help="数据集源路径", default='D:\study\postgraduate\study_project\wavelet_wifi\self-wavelet-wifi\dataset')
     parser.add_argument('--check_point_path', dest="check_point_path", required=False, type=str,
-                        help="模型以及预测结果保存路径", default='/home/lanbo/wifi_wavelet/result/checkpoint/')
+                        help="模型以及预测结果保存路径", default='/home/WangFei/code/wifi-violence-code/result/checkpoint/')
     parser.add_argument('--tab', dest='tab', required=False, type=str,
                         help="输出checkpoint的标记，避免覆盖", default='')
 
