@@ -4,7 +4,7 @@ import os
 import torch
 
 import sys
-sys.path.append('/home/WangFei/code/wifi-violence-code/')
+sys.path.append('/home/WangFei/code/wifi-violence-code')
 # os.environ['MKL_THREADING_LAYER'] = 'GNU'
 # os.environ['MKL_SERVICE_FORCE_INTEL'] = '1'
 
@@ -12,7 +12,7 @@ from scripts.utils import *
 
 # tmux new -s wifi
 # tmux a -t wifi
-# /home/lanbo/anaconda3/envs/test/bin/python3 -u /home/lanbo/wifi_wavelet/scripts/vit_aug_run.py
+# /home/WangFei/anaconda3/envs/torch/bin/python3 -u /home/WangFei/code/wifi-violence-code/scripts/vit_aug_run.py
 
 if __name__ == '__main__':
     os.environ['CUDA_LAUNCH_BLOCKING'] = '1'
@@ -61,7 +61,7 @@ if __name__ == '__main__':
                 os.makedirs(log_path)
 
             os.system(
-                'bash /home/lanbo/wifi_wavelet/scripts/script_run.sh %d %s %s %s %s %d %s %s %s' %
+                'bash /home/WangFei/code/wifi-violence-code/scripts/script_run.sh %d %s %s %s %s %d %s %s %s' %
                 (cuda, dataset_name, backbone_name, head_name, strategy_name, batch_size, log_path, datasource_path, tab)
             )
 

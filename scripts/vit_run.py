@@ -12,7 +12,7 @@ from scripts.utils import *
 
 # tmux new -s wifi
 # tmux a -t wifi
-# /home/lanbo/anaconda3/envs/test/bin/python3 -u /home/lanbo/wifi_wavelet/scripts/vit_run.py
+# /home/WangFei/anaconda3/envs/torch/bin/python3 -u /home/WangFei/code/wifi-violence-code/scripts/vit_run.py
 
 if __name__ == '__main__':
     os.environ['CUDA_LAUNCH_BLOCKING'] = '1'
