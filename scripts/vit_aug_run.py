@@ -8,6 +8,7 @@ sys.path.append('/home/wang_f/code/wifi_violence_code/')
 # os.environ['MKL_THREADING_LAYER'] = 'GNU'
 # os.environ['MKL_SERVICE_FORCE_INTEL'] = '1'
 
+
 from scripts.utils import *
 
 # tmux new -s wifi
@@ -57,7 +58,7 @@ if __name__ == '__main__':
             tab = 'day_2_27'
             datasource_path = '/home/wang_f/data/wifi_violence_dataset/wifi_violence_processed_loc/'
 
-            log_path = os.path.join('/home/wang_f/code/wifi_violence_code/log/', log_name)
+            log_path = os.path.join('/home/wang_f/code/wifi_violence_code/log', log_name)
             if not os.path.exists(log_path):
                 os.makedirs(log_path)
 

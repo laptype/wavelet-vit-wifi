@@ -39,14 +39,14 @@ datasource_path=$8
 tab=$9
 
 echo "========================${dataset_name}-${backbone_name}-${strategy_name}-TRAIN========================"
-CUDA_VISIBLE_DEVICES=1 ${python} -m torch.distributed.launch --nproc_per_node 1 --master_port='29501' --use_env /home/wang_f/code/wifi_violence_code/main.py \
+CUDA_VISIBLE_DEVICES=0,1 ${python} -m torch.distributed.launch --nproc_per_node 2 --master_port='29501' --use_env /home/wang_f/code/wifi_violence_code/main.py \
 --dataset_name ${dataset_name} --gpu_device ${cuda} \
 --backbone_name ${backbone_name} --head_name ${head_name} --strategy_name ${strategy_name} \
 --train_batch_size ${train_batch_size} --eval_batch_size ${eval_batch_size} --num_epoch ${num_epoch} \
 --opt_method ${opt_method} --lr_rate ${lr_rate} --weight_decay ${weight_decay} \
 --lr_rate_adjust_epoch ${lr_rate_adjust_epoch} --lr_rate_adjust_factor ${lr_rate_adjust_factor}  \
 --save_epoch ${save_epoch} --eval_epoch ${eval_epoch} --patience ${patience} --is_train true \
---datasource_path "${datasource_path}" --tab "${tab}"\
+--datasource_path "${datasource_path}" --tab "${tab}" \
 > ${log_path}/${dataset_name}-${backbone_name}-${strategy_name}-TRAIN.log
 
 
@@ -54,5 +54,5 @@ echo "========================${dataset_name}-${strategy_name}-TEST=============
 CUDA_VISIBLE_DEVICES=${cuda} ${python} /home/wang_f/code/wifi_violence_code/main.py --dataset_name ${dataset_name} --gpu_device ${cuda} \
 --backbone_name ${backbone_name} --head_name ${head_name} --strategy_name ${strategy_name} \
 --test_batch_size ${test_batch_size} \
---datasource_path "${datasource_path}" --tab "${tab}"\
+--datasource_path "${datasource_path}" --tab "${tab}" \
 > ${log_path}/${dataset_name}-${backbone_name}-${strategy_name}-TEST.log
