@@ -22,7 +22,7 @@ use_gpu = 1
 
 class Config:
     dataset_name = 'WiVioAUG_i-window-w-s'
-    datasource_path = '/home/WangFei/data/wifi_violence_dataset/wifi_violence_processed_loc/'
+    datasource_path = '/home/wang_f/data/wifi_violence_dataset/wifi_violence_processed_loc/'
     check_point_path = ''
 
     # backbone_name = 'wavevit_wave12_4_test_16'
@@ -69,7 +69,7 @@ def test(config):
 
 if __name__ == '__main__':
     import sys
-    sys.path.append('/home/WangFei/code/wifi-violence-code')
+    sys.path.append('/home/wang_f/code/wifi_violence_code/')
     os.environ['MKL_THREADING_LAYER'] = 'GNU'
     test(Config)
 

@@ -4,7 +4,7 @@ import os
 import torch
 
 import sys
-sys.path.append('/home/WangFei/code/wifi-violence-code')
+sys.path.append('/home/wang_f/code/wifi_violence_code')
 os.environ['MKL_THREADING_LAYER'] = 'GNU'
 # os.environ['MKL_SERVICE_FORCE_INTEL'] = '1'
 
@@ -54,14 +54,14 @@ if __name__ == '__main__':
 
             log_name = 'day_2_27'
             tab = 'day_2_27'
-            datasource_path = '/home/WangFei/data/wifi_violence_dataset/wifi_violence_processed_loc/'
+            datasource_path = '/home/wang_f/data/wifi_violence_dataset/wifi_violence_processed_loc/'
 
-            log_path = os.path.join('/home/WangFei/code/wifi-violence-code/log/', log_name)
+            log_path = os.path.join('/home/wang_f/code/wifi_violence_code/log/', log_name)
             if not os.path.exists(log_path):
                 os.makedirs(log_path)
 
             os.system(
-                'bash /home/WangFei/code/wifi-violence-code/scripts/script_run.sh %d %s %s %s %s %d %s %s %s' %
+                'bash /home/wang_f/code/wifi_violence_code/scripts/script_run.sh %d %s %s %s %s %d %s %s %s' %
                 (cuda, dataset_name, backbone_name, head_name, strategy_name, batch_size, log_path, datasource_path, tab)
             )
 
