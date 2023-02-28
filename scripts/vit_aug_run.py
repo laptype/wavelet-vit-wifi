@@ -5,7 +5,7 @@ import torch
 
 import sys
 sys.path.append('/home/WangFei/code/wifi-violence-code')
-# os.environ['MKL_THREADING_LAYER'] = 'GNU'
+os.environ['MKL_THREADING_LAYER'] = 'GNU'
 # os.environ['MKL_SERVICE_FORCE_INTEL'] = '1'
 
 from scripts.utils import *

@@ -68,5 +68,8 @@ def test(config):
     print(loss)
 
 if __name__ == '__main__':
+    import sys
+    sys.path.append('/home/WangFei/code/wifi-violence-code')
+    os.environ['MKL_THREADING_LAYER'] = 'GNU'
     test(Config)
 

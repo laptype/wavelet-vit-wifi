@@ -2,7 +2,7 @@
 
 # ./script_run [cuda] [dataset_name] [backbone_name] [head_name] [strategy_name] [batch_size]
 
-python="/home/WangFei/anaconda3/envs/torch/bin/python3"
+python="/home/WangFei/anaconda3/envs/torch/bin/python3.8"
 
 cuda=$1
 dataset_name=$2
