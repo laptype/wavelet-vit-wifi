@@ -34,12 +34,13 @@ if __name__ == '__main__':
         # ('wavevit_waveres_0_b_32_0.4_0.1', 'vit_span_cls_raw', 64),
 
         ('wavevit_waveres_8_s_16_0.4_0.1_0.9', 'vit_span_cls_raw', 64),
-        ('wavevit_waveres_8_s_16_0.4_0.1_0.95', 'vit_span_cls_raw', 64),
+        # ('wavevit_waveres_8_s_16_0.4_0.1_0.95', 'vit_span_cls_raw', 64),
         # ('wavevit_waveres_8_s_16_0.4_0.1_0.7', 'vit_span_cls_raw', 64),
         # ('wavevit_waveres_8_s_16_0.4_0.1_0.5', 'vit_span_cls_raw', 64),
         # ('wavevit_waveres_8_s_16_0.4_0.1_0.3', 'vit_span_cls_raw', 64),
         ('wavevit_waveres_8_s_16_0.4_0.1', 'vit_span_cls_raw', 64),
         ('wavevit_waveres_0_s_16_0.4_0.1', 'vit_span_cls_raw', 64),
+        ('wavevit_test_0_s_16_0.4_0.1', 'vit_span_cls_raw', 64),
     ]
 
     config.dataset_list.append(f'WiVioAUG_i-window-w-s')
@@ -54,9 +55,9 @@ if __name__ == '__main__':
             strategy_name = module[1]
             batch_size = module[2]
 
-            log_name = 'day_2_27'
-            tab = 'day_2_27'
-            datasource_path = '/home/wang_f/data/wifi_violence_dataset/wifi_violence_processed_loc/'
+            log_name = 'day_3_7'
+            tab = 'day_3_7'
+            datasource_path = '/data/wang_f/data/wifi_violence_dataset/wifi_violence_processed_loc/'
 
             log_path = os.path.join('/home/wang_f/code/wifi_violence_code/log', log_name)
             if not os.path.exists(log_path):

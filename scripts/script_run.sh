@@ -27,7 +27,7 @@ lr_rate_adjust_epoch=50
 lr_rate_adjust_factor=0.5
 #lr_rate_adjust_factor=0.2
 save_epoch=501
-eval_epoch=501
+eval_epoch=2
 patience=0
 
 test_batch_size=$6

@@ -95,7 +95,7 @@ def init_dataset(dataset_name: str, datasource_path: os.path, check_point_path: 
         dataset_config = WiFiVioDatasetConfig(os.path.join(datasource_path), os.path.join(check_point_path))
         from data_process import load_wifi_Vio_data, WiFiVioDataset
         train_dataset, test_dataset = load_wifi_Vio_data(dataset_config)
-        train_dataset, test_dataset = WiFiVioDataset(train_dataset, is_test=is_test, augs_list=augs_list), WiFiVioDataset(test_dataset, is_test=is_test)
+        train_dataset, test_dataset = WiFiVioDataset(train_dataset, is_test=is_test, augs_list=augs_list), WiFiVioDataset(test_dataset, is_test=True)
         return train_dataset, test_dataset
 
 
