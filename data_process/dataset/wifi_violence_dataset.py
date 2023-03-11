@@ -5,9 +5,11 @@ import torch
 from torch.utils.data.dataset import Dataset
 
 from data_process.dataset_config import DatasetConfig
+from scipy import signal
 
 from util import log_f_ch, load_mat
 from util import augmentation
+from model.function.torch_wavelets_1D import IDWT_1D, DWT_1D
 
 logger = logging.getLogger( )
 
@@ -23,6 +25,21 @@ def load_wifi_Vio_data(config: WiFiVioDatasetConfig):
                   "save_path": os.path.join(config.save_path, 'Train_dataset','train_dataset.csv')}
     test_data = {"data_path": os.path.join(config.datasource_path, 'test'),
                   "list_path": os.path.join(config.datasource_path, 'test_list.csv'),
+                 "save_path": os.path.join(config.save_path, 'Test_dataset', 'test_dataset.csv')}
+
+    for data in [train_data, test_data]:
+        if os.path.exists(data['save_path']):
+            os.remove(data['save_path'])
+
+    return train_data, test_data
+
+def load_loc_wifi_Vio_data(config: WiFiVioDatasetConfig, loc):
+
+    train_data = {"data_path": os.path.join(config.datasource_path, 'data'),
+                  "list_path": os.path.join(config.datasource_path, f'loc_{loc}_train_list.csv'),
+                  "save_path": os.path.join(config.save_path, 'Train_dataset','train_dataset.csv')}
+    test_data = {"data_path": os.path.join(config.datasource_path, 'data'),
+                  "list_path": os.path.join(config.datasource_path, f'loc_{loc}_test_list.csv'),
                  "save_path": os.path.join(config.save_path, 'Test_dataset', 'test_dataset.csv')}
 
     for data in [train_data, test_data]:
@@ -50,6 +67,8 @@ class WiFiVioDataset(Dataset):
         self.freq_n_channel, self.freq_seq_len = None, None
 
         self.augs_list = augs_list
+        self.dwt = DWT_1D(wave='haar')
+        self.idwt = IDWT_1D(wave='haar')
 
         logger.info(log_f_ch('num_sample: ', str(self.num_sample)))
         logger.info(log_f_ch('n_class: ', str(self.label_n_class)))
@@ -69,31 +88,33 @@ class WiFiVioDataset(Dataset):
             }
         else:
             data_aug = data['amp']
-            if self.augs_list is not None:
-                for aug in self.augs_list:
-                    if aug == 'mean-mix':
-                        data_aug = augmentation.mean_mix(data_aug, self.data_path, self.data_list.iloc[index]["file"])
-                    else:
-                        data_aug = aug(data_aug)
+            for aug in self.augs_list:
+                if aug.startswith('filter'):
+                    _, ratio = aug.split('-')
+                    data_aug = torch.from_numpy(data_aug).float()
+                    data_aug = data_aug.unsqueeze(0)
+                    data_aug = self.dwt(data_aug)
+                    data_h = data_aug[:,90:,:] * float(ratio)
+                    data_aug = data_aug[:,:90,:]
+                    data_aug = torch.cat([data_aug, data_h], dim=1)
+                    data_aug = self.idwt(data_aug)
+                    data_aug = data_aug.squeeze(0)
+                    return {
+                        'data': data_aug,
+                        'label': torch.from_numpy(data['label']).long()-1,
+                    }
 
-            # if np.random.rand() < 0.6:
-            #     if self.augs_list is not None:
-            #         for aug in self.augs_list:
-            #             if aug == 'mean-mix':
-            #                 data_aug = augmentation.mean_mix(data_aug, self.data_path, self.data_list.iloc[index]["file"])
-            #             elif aug == 'window-s_magwarp':
-            #                 data_aug = rand_aug(data_aug, augmentation.window_slice, augmentation.magnitude_warp)
-            #             elif aug == 'window-s_window-w':
-            #                 data_aug = rand_aug(data_aug, augmentation.window_slice, augmentation.window_warp)
-            #             elif aug == 'window-s_mean-mix':
-            #                 data_aug = rand_aug(data_aug, augmentation.window_slice, augmentation.mean_mix)
-            #             else:
-            #                 data_aug = aug(data_aug)
             return {
                 'data': torch.from_numpy(data_aug).float(),
                 'label': torch.from_numpy(data['label']).long()-1,
             }
 
+
+
+    def loss_fliter(self, data, frequency=1000, highpass=100):
+        [b, a] = signal.butter(3, highpass / frequency * 2, 'lowpass')
+        Signal_pro = signal.filtfilt(b, a, data)
+        return Signal_pro
 
     def __len__(self):
         return self.num_sample

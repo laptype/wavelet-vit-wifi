@@ -25,7 +25,7 @@ def train(config: TrainConfig):
 
     # ----------------------------- TRAIN---------------------------
 
-    _, aug = config.dataset_name.split('_')
+    _, aug, *_ = config.dataset_name.split('_')
     trainer = Trainer(
         strategy=strategy,
         train_dataset=train_dataset,

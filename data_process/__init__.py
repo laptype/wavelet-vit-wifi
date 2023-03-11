@@ -5,6 +5,7 @@ from .dataset import (
 
     WiFiVioDatasetConfig,
     load_wifi_Vio_data,
+load_loc_wifi_Vio_data,
     WiFiVioDataset,
 )
 
@@ -14,6 +15,7 @@ __all__ = [
     WiFiARDataset,
 
     WiFiVioDatasetConfig,
+load_loc_wifi_Vio_data,
     load_wifi_Vio_data,
     WiFiVioDataset,
 ]

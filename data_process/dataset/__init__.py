@@ -7,6 +7,7 @@ from .wifi_WiAR_dataset import (
 from .wifi_violence_dataset import (
     WiFiVioDatasetConfig,
     load_wifi_Vio_data,
+    load_loc_wifi_Vio_data,
     WiFiVioDataset,
 )
 
@@ -17,5 +18,6 @@ __all__ = [
 
     WiFiVioDatasetConfig,
     load_wifi_Vio_data,
+load_loc_wifi_Vio_data,
     WiFiVioDataset,
 ]

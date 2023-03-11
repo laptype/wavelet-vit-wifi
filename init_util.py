@@ -89,12 +89,22 @@ def init_dataset(dataset_name: str, datasource_path: os.path, check_point_path: 
                         augs_list.append('window-s_window-w')
                     elif aug == 'w-s-mean':
                         augs_list.append('window-s_mean-mix')
+                    elif aug.startswith('filter'):
+                        augs_list.append(aug)
         else:
             augs_list = None
 
+
+
         dataset_config = WiFiVioDatasetConfig(os.path.join(datasource_path), os.path.join(check_point_path))
-        from data_process import load_wifi_Vio_data, WiFiVioDataset
-        train_dataset, test_dataset = load_wifi_Vio_data(dataset_config)
+        from data_process import load_wifi_Vio_data, WiFiVioDataset, load_loc_wifi_Vio_data
+
+        name, *_ = dataset_name.split('_')
+        name, *loc = name.split('-')
+        if (len(loc) == 0):
+            train_dataset, test_dataset = load_wifi_Vio_data(dataset_config)
+        else:
+            train_dataset, test_dataset = load_loc_wifi_Vio_data(dataset_config, loc[0])
         train_dataset, test_dataset = WiFiVioDataset(train_dataset, is_test=is_test, augs_list=augs_list), WiFiVioDataset(test_dataset, is_test=True)
         return train_dataset, test_dataset
 
